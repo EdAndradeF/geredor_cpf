@@ -1,12 +1,18 @@
+from random import randint
+
+
 def cpfdig(l_num):
+    # l_num = l_num
+
     cpf_test1 = []
+
     for mult, _num in enumerate(l_num[::-1], 2):
         x = mult * int(_num)
         cpf_test1 += [x]
-
     dig = 11 - (sum(cpf_test1) % 11)
     if dig > 9:
         dig = 0
+
     return str(dig)
 
 
@@ -20,6 +26,8 @@ def sepcpf(cpf):
 
 
 def verifycpf(cpf):
+    if cpf.count(cpf[0]) == 11:
+        return False
     num, dig = sepcpf(cpf)
     d1 = cpfdig(num)
     d2 = cpfdig(num+d1)
@@ -39,3 +47,11 @@ def cpfformat(cpf):
 
     return ''.join(cpflista)
 
+
+if __name__ == '__main__':
+    f = False
+    while not f:
+        cpf = str(randint(100000000, 999999999))
+        dig = cpfdig(cpf)
+        f = verifycpf(cpf)
+    print(f, cpf)

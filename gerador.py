@@ -1,20 +1,22 @@
 from random import randint, randrange
+from time import time
+
 from models import cpfdig, verifycpf, cpfformat
 
-n = False
-while not n:
-    cpf_num = ''
-    for _ in range(9):
-        c = str(randint(0, 9))
-        cpf_num += c
+
+
+inicio = time()
+verificado = False
+while not verificado:
+
+    cpf_num = str(randint(100000000, 999999999))
 
     dig1 = cpfdig(cpf_num)
     dig2 = cpfdig(cpf_num+dig1)
 
     cpfnovo = cpf_num + dig1 + dig2
 
-    n = verifycpf(cpfnovo)
+    verificado = verifycpf(cpfnovo)
 
-    cpf_ofc = cpfformat(cpfnovo)
-
+cpf_ofc = cpfformat(cpfnovo)
 print(cpf_ofc)
